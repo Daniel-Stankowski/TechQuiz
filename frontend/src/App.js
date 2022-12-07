@@ -6,6 +6,7 @@ import Authorized from "./Authorized";
 import Scoreboard from "./Scoreboard";
 import CategoriesList from "./CategoriesList";
 import "bootstrap/dist/css/bootstrap.min.css";
+import StartQuiz from "./StartQuiz";
 
 function App() {
   const [name, setName] = useState("");
@@ -19,7 +20,7 @@ function App() {
           element={name === "" ? <Authorized /> : <CategoriesList />}
         />
 
-        <Route path="/quiz/:category" element={<div>Page1</div>} />
+        <Route path="/quiz/:category" element={<StartQuiz />} />
         <Route path="/scoreboard" element={<Scoreboard />} />
       </Routes>
     </div>
