@@ -1,0 +1,13 @@
+.loginSection {
+  width: 100vw;
+  height: 100vh;
+}
+
+.loginHeader {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 11vh;
+  justify-content: space-between;
+  padding: 0rem 5rem;
+}
