@@ -4,10 +4,10 @@ import lombok.Data;
 
 @Data
 public class CorrectAnswer {
-    boolean answer_a;
-    boolean answer_b;
-    boolean answer_c;
-    boolean answer_d;
-    boolean answer_e;
-    boolean answer_f;
+    boolean answer_a_correct;
+    boolean answer_b_correct;
+    boolean answer_c_correct;
+    boolean answer_d_correct;
+    boolean answer_e_correct;
+    boolean answer_f_correct;
 }

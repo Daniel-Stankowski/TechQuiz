@@ -8,12 +8,13 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import pl.techquiz.backend.model.Question;
 
 import java.util.List;
 
-@Component
+@Service
 @RequiredArgsConstructor
 public class QuizApiService {
 
