@@ -13,12 +13,22 @@ const Login = ({ setName, name }) => {
     <section className={classes.loginSection}>
       <header className={classes.loginHeader}>
         <div>TechQuiz</div>
-        <div>Scoreboard</div>
+        <div
+          className={classes.scoreboard}
+          onClick={(e) => {
+            navigate("/scoreboard");
+          }}
+        >
+          Scoreboard
+        </div>
       </header>
-      <form>
-        <label for="name">Podaj nazwę:</label>
-        <input onChange={handleNameChange} id="name" type="text"></input>
+      <form className={classes.loginForm}>
+        <div className={classes.inputLogin}>
+          <label for="name">Podaj nazwę:</label>
+          <input onChange={handleNameChange} id="name" type="text"></input>
+        </div>
         <button
+          className={classes.btn}
           onClick={(e) => {
             navigate("/category");
           }}
