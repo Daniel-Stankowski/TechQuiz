@@ -19,7 +19,7 @@ function App() {
           element={name === "" ? <Authorized /> : <CategoriesList />}
         />
 
-        <Route path="/quiz" element={<div>Page1</div>} />
+        <Route path="/quiz/:category" element={<div>Page1</div>} />
         <Route path="/scoreboard" element={<Scoreboard />} />
       </Routes>
     </div>
