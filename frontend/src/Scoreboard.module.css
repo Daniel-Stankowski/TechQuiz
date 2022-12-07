@@ -13,8 +13,8 @@
 .scoreItem {
   display: flex;
   flex-direction: row;
-  width: 30rem;
-  justify-content: space-evenly;
+  width: 14rem;
+  justify-content: space-between;
 }
 
 .scoreboard {
