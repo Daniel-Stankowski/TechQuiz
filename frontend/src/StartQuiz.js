@@ -48,7 +48,7 @@ function StartQuiz({ name }) {
       {dataLoaded ? (
         !clicked && (
           <Button variant="flat" onClick={() => setClicked(true)}>
-            Rozpocznij Quiz
+            Start Quiz
           </Button>
         )
       ) : (

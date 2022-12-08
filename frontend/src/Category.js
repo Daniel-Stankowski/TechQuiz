@@ -21,7 +21,7 @@ function Category(props) {
         />
         <Card.Body>
           <Card.Title>{props.name}</Card.Title>
-          <Card.Text>Liczba pytań: {props.count}</Card.Text>
+          <Card.Text>Total questions: {props.count}</Card.Text>
         </Card.Body>
       </Card>
     </div>
