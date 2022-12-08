@@ -26,16 +26,6 @@ const Scoreboard = () => {
     setCategory(category);
   };
 
-  const DUMMT_DATA = [
-    { name: "John", score: 200, category: "html" },
-    { name: "Frank", score: 300, category: "html" },
-    { name: "Bob", score: 400, category: "html" },
-    { name: "Anna", score: 600, category: "html" },
-    { name: "Hania", score: 350, category: "html" },
-  ];
-
-  DUMMT_DATA.sort((a, b) => b.score - a.score);
-
   return (
     <section>
       <header className={classes.scoreboardHeader}>
@@ -88,6 +78,9 @@ const Scoreboard = () => {
           </Dropdown.Item>
           <Dropdown.Item onClick={handleFilterChange.bind(this, "DEVOPS")}>
             DevOps
+          </Dropdown.Item>
+          <Dropdown.Item onClick={handleFilterChange.bind(this, "HTML")}>
+            HTML
           </Dropdown.Item>
         </Dropdown.Menu>
       </Dropdown>
