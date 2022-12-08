@@ -22,7 +22,7 @@ function App() {
 
         <Route
           path="/quiz/:category"
-          element={name === "" ? <Authorized /> : <StartQuiz />}
+          element={name === "" ? <Authorized /> : <StartQuiz name={name} />}
         />
         <Route path="/scoreboard" element={<Scoreboard />} />
       </Routes>

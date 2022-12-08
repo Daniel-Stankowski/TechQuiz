@@ -2,16 +2,19 @@ import { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import Question from "./Question";
+import Finish from "./Finish";
 
-function StartQuiz() {
+function StartQuiz({ name }) {
   const [questions, setQuestions] = useState();
   const [clicked, setClicked] = useState(false);
   const [questionNumber, setQuestionNumber] = useState(0);
   const [score, setScore] = useState(0);
+  const [isEndOfGame, setIsEndOfGame] = useState(false);
 
   const { category } = useParams();
   const limit = 10;
   const difficulty = "";
+
   useEffect(() => {
     const fetchQuestions = async () => {
       const response = await fetch("http://localhost:8081/questions", {
@@ -29,16 +32,26 @@ function StartQuiz() {
       {!clicked && (
         <Button onClick={() => setClicked(true)}>Rozpocznij Quiz</Button>
       )}
-      {clicked && (
+      {!isEndOfGame && clicked && (
         <>
           <h2>Score: {score}</h2>
           <Question
             setScore={setScore}
             question={questions[questionNumber]}
-            click={() => setQuestionNumber((prev) => prev + 1)}
+            click={() =>
+              setQuestionNumber((prev) => {
+                if (prev + 1 >= questions.length) {
+                  setIsEndOfGame(true);
+                } else {
+                  return prev + 1;
+                }
+              })
+            }
           />
         </>
       )}
+
+      {isEndOfGame && <Finish score={score} name={name} />}
     </div>
   );
 }
