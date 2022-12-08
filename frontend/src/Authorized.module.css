@@ -1,0 +1,34 @@
+.pic {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  width: 4rem;
+  cursor: pointer;
+}
+
+.article {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.article img {
+  margin-top: 2rem;
+  width: 25rem;
+}
+
+.article h3 {
+  width: 30rem;
+  font-size: 2rem;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+}
+
+.outline {
+  font-weight: 700;
+  color: #00bfa6;
+}

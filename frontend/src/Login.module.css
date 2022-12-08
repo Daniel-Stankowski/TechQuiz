@@ -12,6 +12,10 @@
   padding: 0rem 5rem;
 }
 
+.loginHeader h4 {
+  font-size: 1.4rem;
+}
+
 .scoreboard {
   cursor: pointer;
 }
@@ -37,4 +41,14 @@
 .inputLogin input {
   margin-left: 2rem;
   font-size: 1rem;
+  border-radius: 2rem;
+  font-size: 1.3rem;
+  outline: none;
+  border: 1px solid black;
+  padding: 0.3rem 1rem;
+}
+
+.color {
+  color: #00bfa6;
+  font-weight: 800;
 }

@@ -1,6 +1,6 @@
-import { useState } from "react";
 import classes from "./Login.module.css";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 
 const Login = ({ setName, name }) => {
   const navigate = useNavigate();
@@ -12,29 +12,38 @@ const Login = ({ setName, name }) => {
   return (
     <section className={classes.loginSection}>
       <header className={classes.loginHeader}>
-        <div>TechQuiz</div>
-        <div
+        <h4>
+          Tech<span className={classes.color}>Quiz</span>
+        </h4>
+        <h4
           className={classes.scoreboard}
           onClick={(e) => {
             navigate("/scoreboard");
           }}
         >
           Scoreboard
-        </div>
+        </h4>
       </header>
       <form className={classes.loginForm}>
         <div className={classes.inputLogin}>
           <label for="name">Podaj nazwę:</label>
           <input onChange={handleNameChange} id="name" type="text"></input>
         </div>
-        <button
+        <motion.button
+          whileHover={{
+            transition: {
+              type: "just",
+            },
+            backgroundColor: "#00bfa6",
+            width: "13rem",
+          }}
           className={classes.btn}
           onClick={(e) => {
             navigate("/category");
           }}
         >
           Enter
-        </button>
+        </motion.button>
       </form>
     </section>
   );

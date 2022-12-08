@@ -7,6 +7,8 @@ function StartQuiz() {
   const [questions, setQuestions] = useState();
   const [clicked, setClicked] = useState(false);
   const [questionNumber, setQuestionNumber] = useState(0);
+  const [score, setScore] = useState(0);
+
   const { category } = useParams();
   const limit = 10;
   const difficulty = "";
@@ -28,10 +30,14 @@ function StartQuiz() {
         <Button onClick={() => setClicked(true)}>Rozpocznij Quiz</Button>
       )}
       {clicked && (
-        <Question
-          question={questions[questionNumber]}
-          click={() => setQuestionNumber((prev) => prev + 1)}
-        />
+        <>
+          <h2>Score: {score}</h2>
+          <Question
+            setScore={setScore}
+            question={questions[questionNumber]}
+            click={() => setQuestionNumber((prev) => prev + 1)}
+          />
+        </>
       )}
     </div>
   );

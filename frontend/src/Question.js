@@ -1,17 +1,28 @@
-import { Button } from "react-bootstrap";
-import { propTypes } from "react-bootstrap/esm/Image";
 import Answer from "./Answer";
-import Anwser from "./Answer";
 
 function Question(props) {
+  const answers = props.question.correct_answers;
+  const correctAnswer = Object.keys(answers)
+    .find((key) => answers[key] === true)
+    .slice(0, 8);
+  console.log(props.question);
+
   return (
     <div>
       <h1>{props.question.question}</h1>
-      {Object.entries(props.question.answers)
-        .map((k) => k[1])
-        .map((answer) =>
-          answer ? <Answer answer={answer} click={props.click} /> : <></>
-        )}
+      {Object.entries(props.question.answers).map((answer) =>
+        answer[1] ? (
+          <Answer
+            setScore={props.setScore}
+            correctAnswer={correctAnswer}
+            answerId={answer[0]}
+            answer={answer[1]}
+            click={props.click}
+          />
+        ) : (
+          <></>
+        )
+      )}
     </div>
   );
 }
