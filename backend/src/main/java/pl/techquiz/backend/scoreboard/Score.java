@@ -8,21 +8,11 @@ import lombok.*;
 @Table
 @Entity
 @NoArgsConstructor
+@AllArgsConstructor
 public class Score {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
+    @Id
     private String username;
     private String category;
     private int score;
-
-    public Score(String username, String category, int score) {
-        this.username = username;
-        this.category = category;
-        this.score = score;
-    }
-
-
-
 }

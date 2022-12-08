@@ -11,11 +11,8 @@ public class ScoreService {
 
     private final ScoreRepository scoreRepository;
 
-    public Score saveUserScore(final ScoreRequest scoreRequest) {
-        final Score newScore = new Score(
-                scoreRequest.getUsername(), scoreRequest.getCategory(), scoreRequest.getScore());
-
-        return scoreRepository.save(newScore);
+    public Score saveUserScore(final Score score) {
+        return scoreRepository.save(score);
     }
 
     public List<Score> getUserScoresForCategory(final String category) {
