@@ -24,7 +24,9 @@ function StartQuiz({ name }) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ limit, difficulty, category }),
       });
+
       const data = await response.json();
+
       setQuestions(data);
       setDataLoaded(true);
     };
