@@ -33,17 +33,10 @@ public class ScoreboardStories extends ConfigurableEmbedder {
 
     private StoryReporterBuilder reporterBuilder;
 
-//    @Autowired
-//    private ScoreboardSteps scoreboardSteps;
-
     @Autowired
     ScoreService scoreService;
 
     public Embedder embedder;
-
-//    public pl.techquiz.backend.ScoreboardStories(ScoreService scoreService) {
-//        this.scoreService = scoreService;
-//    }
 
 
     @Test
@@ -56,33 +49,19 @@ public class ScoreboardStories extends ConfigurableEmbedder {
         embedder = configuredEmbedder();
         embedder.configuration();
 
-        //scoreboardSteps.dependencyTest();
-        //scoreService.test();
-
-        System.out.println("runner");
         List<String> paths = List.of(
                 "scoreboard.story"
         );
-
         embedder.runStoriesAsPaths(paths);
-
     }
 
     public Configuration configuration() {
-        //return new MostUsefulConfiguration().useStoryReporterBuilder(reporterBuilder);
         return new MostUsefulConfiguration().useStoryReporterBuilder(new StoryReporterBuilder().
-                withDefaultFormats().withFormats(Format.CONSOLE));
+                withDefaultFormats().withFormats(Format.CONSOLE, org.jbehave.core.reporters.Format.HTML));
     }
-
 
     public InjectableStepsFactory stepsFactory() {
-        //ApplicationContext context =  new ClassPathXmlApplicationContext("text.xml");
         return new InstanceStepsFactory(configuration(), new ScoreboardSteps(scoreService));
-    }
-
-    protected List<String> storyPaths() {
-        return new StoryFinder().findPaths(codeLocationFromClass(this.getClass()).getFile(),
-                asList("**/" + System.getProperty("storyFilter", "*") + ".story"), null);
     }
 
 }

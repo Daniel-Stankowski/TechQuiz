@@ -3,102 +3,107 @@ package steps;
 import org.jbehave.core.annotations.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.Arrays;
+import org.springframework.beans.factory.annotation.Autowired;
+import pl.techquiz.backend.model.Question;
+import pl.techquiz.backend.quizapi.QuestionRequest;
+import pl.techquiz.backend.quizapi.QuizApiService;
 import java.util.List;
-import java.util.stream.Collectors;
-
-import static org.junit.Assert.assertEquals;
-
 
 public class PlaySteps {
 
     Logger logger = LoggerFactory.getLogger(PlaySteps.class);
+    private final QuizApiService quizApiService;
 
-    @BeforeStories
-    public void doSomethingBeforeStories(){
-        System.out.println("cos przed stories");
+    @Autowired
+    public PlaySteps(QuizApiService quizApiService) {
+        this.quizApiService = quizApiService;
     }
 
-    //Scenario: Trying to start the quiz
+    // Scenario: Checking if questions were fetched
 
-    @Given("I am on website")
-    public void mainPageDisplayed(){
-        logger.info("website displayed");
+    private String cat;
+    @Given("I have started the quiz called $category")
+    public void saveCategoryName(String category){
+        cat=category;
     }
 
-    @When("I click start button")
-    public void startButtonClicked(){
-        logger.info("clicked");
+    @Then("Questions showed up")
+    public void checkIfQuestionsWereFetched(){
+
+        QuestionRequest testRequest = QuestionRequest.builder()
+                .limit("10")
+                .category(cat)
+                .difficulty("EASY")
+                .build();
+
+        List<Question> listOfQuestions = quizApiService.getQuestionsForCategory(testRequest);
+
+        assert listOfQuestions.size()==10;
     }
 
-    @Then("Quiz appears")
-    public void quizAppeared(){
-        logger.info("appeared");
+    // Scenario: Checking if correct number of questions were fetched
+
+    private String number,diff,category;
+
+    @Given("There is $num of questions to fetch")
+    public void saveNumber(String num){
+        number=num;
     }
 
-//    // Scenario: Checking if answer is correct
-//
-//    @Given("I have started the quiz called $quiz")
-//    public void quizTestowe(String quiz){
-//        logger.info("QUIZ: "+quiz);
-//    }
-//
-//    @Given("Question showed up - $question")
-//    public void questionTestowe(String question) {
-//        logger.info("QUESTION: "+question);
-//    }
-//
-//    @When("I have chosen an answer - $answer")
-//    public void answerTestowe(String answer) {
-//        logger.info("ANSWER: "+answer);
-//    }
-//
-//    @Then("Correct answer highlights - $correctAnswer")
-//    public void correctAnswerTestowe(String correctAnswer) {
-//        logger.info("CORRECT ANSWER: "+correctAnswer);
-//    }
-//
-//    @Then("I got score if I chose right answer $answer == $correct_answer")
-//    public void checkAnswer(String answer, String correctAnswer){
-//        logger.info(answer+"=="+correctAnswer+"?");
-//        assertEquals(answer,correctAnswer);
-//    }
-//
-//    //Scenario: User is able to sort scoreboard by best score
-//
-//    @Given("There are $scores to sort")
-//    public void scoresExistCheck(String scores) {
-//        logger.info("SCORES: "+scores);
-//
-//        if(scores==null || scores.equals("")) throw new NullPointerException("Null value");
-//
-//    }
-//
-//    private List<Integer> sortedScores;
-//    @When("Button sort $scores is clicked")
-//    public void sortScores(String scores) {
-//        System.out.println("SORTING SCORES...");
-//
-//        //testowanie sortowania
-//        sortedScores = Arrays.stream(scores.split(","))
-//                .toList().stream().map(Integer::parseInt).sorted().collect(Collectors.toList());
-//
-//        logger.info("SORTED LIST: "+sortedScores);
-//
-//    }
-//
-//
-//    @Then("Scoreboard is $sorted")
-//    public void scoreboardSortCheck(String sorted) {
-//        logger.info("SORT CHECK...");
-//        assertEquals(sortedScores, Arrays.stream(sorted.split(",")).map(Integer::parseInt).toList());
-//        logger.info("PROPERLY SORTED");
-//    }
-//
-//    @AfterStories
-//    public void doSomethingAfterStories(){
-//        System.out.println("cos po stories");
-//    }
+    @When("$cat and $difficulty are chosen")
+    public void saveCatAndDiff(String cat, String difficulty){
+        diff=difficulty;
+        category=cat;
+    }
+
+    @Then("Appropriate number of questions are fetched")
+    public void fetchCorrectNumOfQuestions(){
+        QuestionRequest qr = QuestionRequest.builder()
+                .category(category)
+                .limit(number)
+                .difficulty(diff)
+                .build();
+
+        List<Question> listOfQuestions = quizApiService.getQuestionsForCategory(qr);
+
+        assert listOfQuestions.size() == Integer.parseInt(number);
+    }
+
+    // Scenario: User gives correct answer
+
+    String usrAnswer;
+    @Given("User chooses $answer")
+    public void userChoseAnswer(String answer){
+        logger.info("User's answer: "+answer);
+        usrAnswer=answer;
+    }
+
+    @When("Proceeds to next question")
+    public void confirmsTheAnswer(){
+        logger.info("Answer confirmed");
+    }
+
+    @Then("System checks if answer is $correct_answer")
+    public void checkCorrectness(String correct_answer){
+        assert correct_answer.equals(usrAnswer);
+        logger.info("Answer was correct");
+    }
+
+    @Then("System gives point to user if so")
+    public void givePoints(){
+        logger.info("Points were added...");
+    }
+
+    // Scenario: User gives wrong answer
+
+    @Then("System sees wrong answer, correct is $correct_answer")
+    public void checkNotCorrect(String correct_answer){
+        assert !correct_answer.equals(usrAnswer);
+    }
+
+    @Then("System does not give points")
+    public void dontGivePoints(){
+        logger.info("Points not added...");
+    }
 
 }

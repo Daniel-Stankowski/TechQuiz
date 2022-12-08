@@ -1,3 +1,5 @@
+package pl.techquiz.backend;
+
 import org.jbehave.core.ConfigurableEmbedder;
 import org.jbehave.core.InjectableEmbedder;
 import org.jbehave.core.annotations.Configure;
@@ -16,38 +18,33 @@ import org.jbehave.core.steps.InstanceStepsFactory;
 import org.junit.jupiter.api.Test;
 //import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import pl.techquiz.backend.quizapi.QuizApiService;
+import pl.techquiz.backend.scoreboard.ScoreService;
 import steps.PlaySteps;
 
 
 import java.util.List;
 
-import static java.util.Arrays.asList;
-import static org.jbehave.core.io.CodeLocations.codeLocationFromClass;
 
+@SpringBootTest
 public class PlayStories extends ConfigurableEmbedder {
-//
-//    PendingStepStrategy pendingStepStrategy = new FailingUponPendingStep();
-//    StoryReporterBuilder reporterBuilder = new StoryReporterBuilder()
-//            .withCodeLocation(codeLocationFromClass(PlayStories.class)).withFailureTrace(true)
-//            .withFailureTraceCompression(true).withDefaultFormats();
 
+
+    @Autowired
+    QuizApiService quizApiService;
     public Embedder embedder;
 
     @Test
     public void run(){
 
-//        StoryReporterBuilder reporterBuilder = new StoryReporterBuilder()
-//                .withCodeLocation(codeLocationFromClass(PlayStories.class)).withFailureTrace(true)
-//                .withFailureTraceCompression(true).withDefaultFormats();
-
     embedder = configuredEmbedder();
     embedder.configuration();
-
-        System.out.println("runner");
-        List<String> paths = List.of(
-                "play.story"
-        );
+    List<String> paths = List.of(
+            "play.story",
+            "check.story"
+    );
 
     embedder.runStoriesAsPaths(paths);
 
@@ -56,13 +53,11 @@ public class PlayStories extends ConfigurableEmbedder {
 
     public Configuration configuration() {
         return new MostUsefulConfiguration().useStoryReporterBuilder(new StoryReporterBuilder().
-                withDefaultFormats().withFormats(Format.CONSOLE));
+                withDefaultFormats().withFormats(Format.CONSOLE, org.jbehave.core.reporters.Format.HTML));
     }
 
-
     public InjectableStepsFactory stepsFactory() {
-        //ApplicationContext context =  new SpringApplicationContextFactory("test.xml").createApplicationContext();
-        return new InstanceStepsFactory(configuration(), new PlaySteps());
+        return new InstanceStepsFactory(configuration(), new PlaySteps(quizApiService));
     }
 
 }

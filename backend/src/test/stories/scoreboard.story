@@ -1,17 +1,19 @@
 Narrative: In order to see my progress as a player i want to see scoreboard
 
-Scenario: User is able to sort scoreboard by best score
-
-Given There are <scores> to sort
-When Button sort <scores> is clicked
-Then Scoreboard is <sorted>
-
-Examples:
-|scores|sorted|
-|10,30,20,40,35,100,90|10,20,30,35,40,90,100|
-
 Scenario: User score is added to a scoreboard
 
-Given User gathered 100 points
-When The game has ended
+Given Player gathered 100 points
+When Player supergracz has ended the game of linuxCategory
 Then User's score is added to the scoreboard
+
+Scenario: User browses scoreboard in specific category
+
+Given There are some highscores in bash category scoreboard
+When User opens the scoreboard window
+Then Scoreboard appears with results
+
+Scenario: User browses empty scoreboard in specific category
+
+Given There are no scores in HTML category scoreboard
+When User opens the scoreboard window
+Then Scoreboard appears with empty results

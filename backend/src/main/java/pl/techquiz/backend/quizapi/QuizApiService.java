@@ -25,7 +25,6 @@ public class QuizApiService {
                 .limit(request.getLimit())
                 .build();
 
-
         return webClient.method(HttpMethod.GET)
                 .body(Mono.just(quizApiRequest), QuestionRequest.class)
                 .retrieve()
