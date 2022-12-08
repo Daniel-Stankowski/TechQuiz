@@ -26,7 +26,7 @@ const Login = ({ setName, name }) => {
       </header>
       <form className={classes.loginForm}>
         <div className={classes.inputLogin}>
-          <label for="name">Podaj nazwę:</label>
+          <label for="name">Enter your name:</label>
           <input onChange={handleNameChange} id="name" type="text"></input>
         </div>
         <motion.button

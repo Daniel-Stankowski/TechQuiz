@@ -10,13 +10,6 @@
   cursor: pointer;
 }
 
-.scoreItem {
-  display: flex;
-  flex-direction: row;
-  width: 14rem;
-  justify-content: space-between;
-}
-
 .scoreboard {
   height: 50vh;
   font-size: 1.2rem;
@@ -24,4 +17,10 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+.title {
+  font-size: 1.2rem;
+  margin-top: 2rem;
+  font-weight: 800;
 }
