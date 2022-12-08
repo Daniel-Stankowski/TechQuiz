@@ -25,22 +25,21 @@ import java.util.List;
 import static java.util.Arrays.asList;
 import static org.jbehave.core.io.CodeLocations.codeLocationFromClass;
 
-
 public class PlayStories extends ConfigurableEmbedder {
-
-    PendingStepStrategy pendingStepStrategy = new FailingUponPendingStep();
-    StoryReporterBuilder reporterBuilder = new StoryReporterBuilder()
-            .withCodeLocation(codeLocationFromClass(PlayStories.class)).withFailureTrace(true)
-            .withFailureTraceCompression(true).withDefaultFormats();
+//
+//    PendingStepStrategy pendingStepStrategy = new FailingUponPendingStep();
+//    StoryReporterBuilder reporterBuilder = new StoryReporterBuilder()
+//            .withCodeLocation(codeLocationFromClass(PlayStories.class)).withFailureTrace(true)
+//            .withFailureTraceCompression(true).withDefaultFormats();
 
     public Embedder embedder;
 
     @Test
     public void run(){
 
-        StoryReporterBuilder reporterBuilder = new StoryReporterBuilder()
-                .withCodeLocation(codeLocationFromClass(PlayStories.class)).withFailureTrace(true)
-                .withFailureTraceCompression(true).withDefaultFormats();
+//        StoryReporterBuilder reporterBuilder = new StoryReporterBuilder()
+//                .withCodeLocation(codeLocationFromClass(PlayStories.class)).withFailureTrace(true)
+//                .withFailureTraceCompression(true).withDefaultFormats();
 
     embedder = configuredEmbedder();
     embedder.configuration();
@@ -64,12 +63,6 @@ public class PlayStories extends ConfigurableEmbedder {
     public InjectableStepsFactory stepsFactory() {
         //ApplicationContext context =  new SpringApplicationContextFactory("test.xml").createApplicationContext();
         return new InstanceStepsFactory(configuration(), new PlaySteps());
-    }
-
-
-    protected List<String> storyPaths() {
-        return new StoryFinder().findPaths(codeLocationFromClass(this.getClass()).getFile(),
-                asList("**/" + System.getProperty("storyFilter", "*") + ".story"), null);
     }
 
 }

@@ -53,9 +53,10 @@ public class ScoreboardSteps {
 
         scoreService.saveUserScore(userScore);
 
-        List<Score> kurwa = scoreService.getUserScoresForCategory("testowy");
+        List<Score> fetchedScores = scoreService.getUserScoresForCategory("testowy");
 
-        assertEquals(kurwa.get(0),score);
+        assertEquals(fetchedScores.get(0).getScore(),score);
+        //assert true;
     }
 
 
