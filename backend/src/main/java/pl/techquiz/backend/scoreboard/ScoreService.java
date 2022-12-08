@@ -36,4 +36,5 @@ public class ScoreService {
                         .scores(scoreRepository.findByCategory(category))
                         .build()).collect(Collectors.toList());
     }
+
 }
