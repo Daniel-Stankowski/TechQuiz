@@ -23,14 +23,6 @@ public class QuizApiController {
     @PostMapping("/questions")
     public List<Question> getQuestionsForCategory(@RequestBody QuestionRequest request) {
 
-        final List<Question> questions = quizApiService.getQuestionsForCategory(request);
-
-        try {
-            logger.info(objectMapper.writeValueAsString(questions));
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
-        }
-
-        return questions;
+        return quizApiService.getQuestionsForCategory(request);
     }
 }

@@ -1,43 +1,52 @@
 package pl.techquiz.backend.quizapi;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import io.netty.channel.ChannelOption;
+import io.netty.handler.timeout.ReadTimeoutHandler;
+import io.netty.handler.timeout.WriteTimeoutHandler;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.client.BufferingClientHttpRequestFactory;
-import org.springframework.http.client.ClientHttpRequestFactory;
-import org.springframework.http.client.ClientHttpResponse;
-import org.springframework.http.client.SimpleClientHttpRequestFactory;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.http.MediaType;
+import org.springframework.http.client.reactive.ReactorClientHttpConnector;
+import org.springframework.web.reactive.function.client.WebClient;
+import reactor.netty.http.client.HttpClient;
 
-import java.nio.charset.StandardCharsets;
-import java.util.Collections;
+import java.time.Duration;
 
 @Configuration
 public class QuizApiConfig {
+
+    @Value("${quiz.api.url}")
+    private String quizApiUrl;
+
+    @Value("${quiz.api.token}")
+    private String token;
+
     private static final int READ_TIMEOUT = 100000;
     private static final int CONNECTION_TIMEOUT = 100000;
-
-    private static final Logger logger = LoggerFactory.getLogger(QuizApiConfig.class);
+    private static final int RESPONSE_TIMEOUT = 100000;
+    private static final int WRITE_TIMEOUT = 100000;
 
     @Bean
-    public RestTemplate createRestTemplate() {
-        RestTemplate restTemplate = new RestTemplate();
-        restTemplate.setRequestFactory(requestFactory());
-        restTemplate.setInterceptors(Collections.singletonList((request, body, execution) -> {
-            logger.info(new String(body, StandardCharsets.UTF_8));
-            ClientHttpResponse response = execution.execute(request, body);
-            logger.info(new String(response.getBody().readAllBytes(), StandardCharsets.UTF_8));
-            return response;
-        }));
-        return restTemplate;
+    public WebClient createWebClient() {
+        return WebClient.builder()
+                .clientConnector(connector())
+                .baseUrl(this.quizApiUrl)
+                .defaultHeaders(httpHeaders -> {
+                    httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+                    httpHeaders.add("X-Api-Key", this.token);
+                })
+                .build();
     }
 
-    private ClientHttpRequestFactory requestFactory() {
-        SimpleClientHttpRequestFactory requestFactory = new SimpleClientHttpRequestFactory();
-        requestFactory.setReadTimeout(READ_TIMEOUT);
-        requestFactory.setConnectTimeout(CONNECTION_TIMEOUT);
-        requestFactory.setOutputStreaming(false);
-        return new BufferingClientHttpRequestFactory(requestFactory);
+    private ReactorClientHttpConnector connector() {
+        final HttpClient httpClient = HttpClient.create()
+                .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, CONNECTION_TIMEOUT)
+                .responseTimeout(Duration.ofMillis(RESPONSE_TIMEOUT))
+                .doOnConnected(connection -> {
+                    connection.addHandlerLast(new ReadTimeoutHandler(READ_TIMEOUT));
+                    connection.addHandlerLast(new WriteTimeoutHandler(WRITE_TIMEOUT));
+                });
+        return new ReactorClientHttpConnector(httpClient);
     }
 }

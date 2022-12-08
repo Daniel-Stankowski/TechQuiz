@@ -6,7 +6,7 @@ import lombok.Data;
 @Data
 @Builder
 public class QuestionRequest {
-    int limit;
+    String limit;
     String difficulty;
     String category;
 }
