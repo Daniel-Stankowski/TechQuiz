@@ -22,4 +22,9 @@ public class ScoreController {
     public List<Score> getScoresForCategory(@RequestParam String category) {
         return scoreService.getUserScoresForCategory(category);
     }
+
+    @GetMapping("/all")
+    public List<CategoryScore> getCategoryScores() {
+        return scoreService.getScoresForAllCategories();
+    }
 }
