@@ -19,9 +19,15 @@ public class QuizApiService {
     private final WebClient webClient;
 
     public List<Question> getQuestionsForCategory(final QuestionRequest request) {
+        final QuizApiRequest quizApiRequest = QuizApiRequest.builder()
+                .tags(request.getCategory())
+                .difficulty(request.getDifficulty())
+                .limit(request.getLimit())
+                .build();
+
 
         return webClient.method(HttpMethod.GET)
-                .body(Mono.just(request), QuestionRequest.class)
+                .body(Mono.just(quizApiRequest), QuestionRequest.class)
                 .retrieve()
                 .bodyToMono(new ParameterizedTypeReference<List<Question>>() {
                 })

@@ -17,9 +17,6 @@ public class QuizApiController {
 
     private final QuizApiService quizApiService;
 
-    private static final Logger logger = LoggerFactory.getLogger(QuizApiConfig.class);
-    private static final ObjectMapper objectMapper = new ObjectMapper();
-
     @PostMapping("/questions")
     public List<Question> getQuestionsForCategory(@RequestBody QuestionRequest request) {
 
