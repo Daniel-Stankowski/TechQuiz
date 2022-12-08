@@ -3,6 +3,7 @@ import { Button } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import Question from "./Question";
 import Finish from "./Finish";
+import Spinner from "react-bootstrap/Spinner";
 
 function StartQuiz({ name }) {
   const [questions, setQuestions] = useState();
@@ -10,6 +11,7 @@ function StartQuiz({ name }) {
   const [questionNumber, setQuestionNumber] = useState(0);
   const [score, setScore] = useState(0);
   const [isEndOfGame, setIsEndOfGame] = useState(false);
+  const [dataLoaded, setDataLoaded] = useState(false);
 
   const { category } = useParams();
   const limit = 10;
@@ -24,13 +26,18 @@ function StartQuiz({ name }) {
       });
       const data = await response.json();
       setQuestions(data);
+      setDataLoaded(true);
     };
     fetchQuestions();
   }, []);
   return (
     <div>
-      {!clicked && (
-        <Button onClick={() => setClicked(true)}>Rozpocznij Quiz</Button>
+      {dataLoaded ? (
+        !clicked && (
+          <Button onClick={() => setClicked(true)}>Rozpocznij Quiz</Button>
+        )
+      ) : (
+        <Spinner animation="border" />
       )}
       {!isEndOfGame && clicked && (
         <>
