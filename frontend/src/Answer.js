@@ -26,7 +26,7 @@ function Answer(props) {
                 }
             `}
         </style>
-  <Button variant='flat' style={{width: '80vh', height: '20vh'}} className="m-3 btn" onClick={onClick}>{props.answer}</Button></>;
+  <Button variant='flat' style={{width: '75vh', height: '15vh'}} className="m-3 btn" onClick={onClick}>{props.answer}</Button></>;
 }
 
 export default Answer;

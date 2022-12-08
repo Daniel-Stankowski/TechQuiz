@@ -32,8 +32,8 @@ function Question(props) {
   return (
     <div>
       <div className="d-flex justify-content-center m-3" >
-        <Card style={{ height: '20vh', width: '170vh'}} className="d-flex align-items-center justify-content-center">
-          <Card.Title>{props.question.question}</Card.Title>
+        <Card style={{ height: '30vh', width: '170vh'}} className="d-flex align-items-center justify-content-center">
+          <Card.Title><h1>{props.question.question}</h1></Card.Title>
         </Card>
       </div>
       <div className="d-flex justify-content-center m-4" >
@@ -46,7 +46,7 @@ function Question(props) {
         </style>
         <ProgressBar style={{ width: '170vh'}} now={time} />
       </div>
-      <div className="d-flex flex-row flex-shrink-0 flex-wrap justify-content-center">
+      <div className="d-flex flex-row flex-shrink-2 flex-wrap justify-content-center">
       {Object.entries(props.question.answers).map((answer) =>
         answer[1] ? (
           <Answer

@@ -29,8 +29,21 @@ function StartQuiz({ name }) {
   }, []);
   return (
     <div>
+      <style type="text/css">
+        {`
+            .btn-flat {
+              font-size: 2rem;
+              background-color: #0d1b2a;
+              color: white;
+            }
+            .btn-flat:hover {
+              background-color: #00bfa6;
+              color: white;
+            }
+        `}
+      </style>
       {!clicked && (
-        <Button onClick={() => setClicked(true)}>Rozpocznij Quiz</Button>
+        <Button onClick={() => setClicked(true)} variant='flat'>Rozpocznij Quiz</Button>
       )}
       {!isEndOfGame && clicked && (
         <>
