@@ -1,10 +1,8 @@
 package pl.techquiz.backend.scoreboard;
 
-import lombok.Data;
+import java.io.Serializable;
 
-@Data
-public class ScoreRequest {
+public class ScoreKey implements Serializable {
     private String username;
     private String category;
-    private int score;
 }

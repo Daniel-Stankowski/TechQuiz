@@ -14,7 +14,7 @@ public class ScoreController {
     private final ScoreService scoreService;
 
     @PostMapping
-    public Score saveUserScore(@RequestBody ScoreRequest scoreRequest) {
+    public Score saveUserScore(@RequestBody Score scoreRequest) {
         return scoreService.saveUserScore(scoreRequest);
     }
 
