@@ -9,10 +9,12 @@ import lombok.*;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
+@IdClass(ScoreKey.class)
 public class Score {
 
     @Id
     private String username;
+    @Id
     private String category;
     private int score;
 }
