@@ -8,6 +8,7 @@ import CategoriesList from "./CategoriesList";
 import "bootstrap/dist/css/bootstrap.min.css";
 import StartQuiz from "./StartQuiz";
 
+
 function App() {
   const [name, setName] = useState("");
 
