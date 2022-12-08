@@ -5,7 +5,6 @@ function Question(props) {
   const correctAnswer = Object.keys(answers)
     .find((key) => answers[key] === true)
     .slice(0, 8);
-  console.log(props.question);
 
   return (
     <div>

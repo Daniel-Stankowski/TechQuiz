@@ -17,7 +17,7 @@ function StartQuiz({ name }) {
 
   useEffect(() => {
     const fetchQuestions = async () => {
-      const response = await fetch("http://localhost:8081/questions", {
+      const response = await fetch("http://localhost:8080/questions", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ limit, difficulty, category }),
@@ -51,7 +51,7 @@ function StartQuiz({ name }) {
         </>
       )}
 
-      {isEndOfGame && <Finish score={score} name={name} />}
+      {isEndOfGame && <Finish score={score} name={name} category={category} />}
     </div>
   );
 }
