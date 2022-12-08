@@ -12,7 +12,7 @@ const Scoreboard = () => {
 
   useEffect(() => {
     const getScores = async () => {
-      const response = await fetch("http://localhost:8081/score/all");
+      const response = await fetch("http://localhost:8080/score/all");
       const data = await response.json();
 
       setScores(data);

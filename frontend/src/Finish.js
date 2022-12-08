@@ -7,7 +7,7 @@ const Finish = ({ name, score, category }) => {
   const naviage = useNavigate();
   useEffect(() => {
     const sendScore = async () => {
-      await fetch("http://localhost:8081/score", {
+      await fetch("http://localhost:8080/score", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username: name, category, score }),
