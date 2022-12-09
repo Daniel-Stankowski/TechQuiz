@@ -5,3 +5,22 @@
   width: 4rem;
   cursor: pointer;
 }
+
+.sec {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+}
+
+.name {
+  color: #00bfa6;
+  font-size: 2.3rem;
+  font-weight: 600;
+}
+
+.score {
+  font-weight: 600;
+}

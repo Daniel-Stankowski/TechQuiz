@@ -49,12 +49,16 @@ function StartQuiz({ name }) {
       </style>
       {dataLoaded ? (
         !clicked && (
-          <Button variant="flat" onClick={() => setClicked(true)}>
+          <Button
+            variant="flat"
+            style={{ marginTop: "50vh" }}
+            onClick={() => setClicked(true)}
+          >
             Start Quiz
           </Button>
         )
       ) : (
-        <Spinner animation="border" />
+        <Spinner style={{ marginTop: "50vh" }} animation="border" />
       )}
       {!isEndOfGame && clicked && (
         <>

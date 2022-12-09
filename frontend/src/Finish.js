@@ -17,7 +17,7 @@ const Finish = ({ name, score, category }) => {
   }, []);
 
   return (
-    <section>
+    <section className={classes.sec}>
       <motion.img
         whileHover={{ x: -5 }}
         onClick={() => naviage("/")}
@@ -25,9 +25,10 @@ const Finish = ({ name, score, category }) => {
         src={"/assets/back.png"}
       />
 
-      <div>End screen</div>
-      <h2>Good job {name}</h2>
-      <h3>Your score: {score}</h3>
+      <h2>
+        Good job <span className={classes.name}>{name}</span>
+      </h2>
+      <h3 className={classes.score}>Your score: {score}</h3>
     </section>
   );
 };
